@@ -49,6 +49,7 @@ RUN rm -rf /var/cache/apk/*
 
 # Move 
 COPY --from=build /${serviceName} /home/
+COPY ./static /home/
 
 # Set TimeZone
 ENV TZ=Europe/London
