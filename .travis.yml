@@ -1,0 +1,17 @@
+sudo: required
+language: bash
+services:
+  - docker
+env:
+  - CLUSTER=$DEV_CLUSTER
+script:
+  - docker build -t $APP:latest
+    --build-arg build=$TRAVIS_COMMIT
+    --build-arg version=$TRAVIS_COMMIT
+    --build-arg serviceName=$APP
+    --build-arg SERVICE_NAME=$SERVICE_NAME
+    --build-arg SERVICE_DEPENDENCIES=$SERVICE_DEPENDENCIES
+    -f Dockerfile .
+after_success:
+  - bash .travis-deploy/docker.sh
+  - bash .travis-deploy/deploy.sh
