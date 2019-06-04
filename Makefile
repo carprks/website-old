@@ -8,6 +8,7 @@ LDFLAGS := -X "main.Version=$(VERSION)" -X "main.Build=$(shell git rev-parse --s
 TAGS ?=
 SERVICENAME ?= "website"
 DD := "docker"
+BUILD=$(shell git rev-parse --short=7 HEAD)
 
 .PHONY: all
 all: build
@@ -20,7 +21,7 @@ build:
 clean:
 	go clean -i ./...
 	rm -rf $(SERVICENAME)
-    $(DD) rmi "carprks/$(SERVICENAME):$(VERSION)"
+    $(DD) rmi "carprks/$(SERVICENAME):$(BUILD)"
     $(DD) rmi "carprks/$(SERVICENAME):latest"
 
 .PHONY: osx
@@ -29,7 +30,7 @@ osx:
 
 .PHONY: docker
 docker:
-	docker build -t "carprks/$(SERVICENAME):$(VERSION)" \
+	docker build -t "carprks/$(SERVICENAME):$(BUILD)" \
 		--build-arg build=$(BUILD) \
 		--build-arg version=$(VERSION) \
 		--build-arg serviceName=$(SERVICENAME) \

@@ -24,10 +24,6 @@ ARG DATABASE_DYNAMO
 ARG SERVICE_NAME
 ARG SERVICE_DEPENDENCIES
 
-# Debug
-RUN echo $AWS_DB_TABLE
-RUN echo ${AWS_DB_TABLE}
-
 # Lint and Test
 COPY . .
 RUN golint -set_exit_status ./...
