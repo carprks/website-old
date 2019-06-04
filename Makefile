@@ -6,7 +6,7 @@ export GOARCH=amd64
 
 LDFLAGS := -X "main.Version=$(VERSION)" -X "main.Build=$(shell git rev-parse --short=7 HEAD)"
 TAGS ?=
-SERVICENAME ?= "website"
+SERVICENAME ?= website
 DD := "docker"
 BUILD=$(shell git rev-parse --short=7 HEAD)
 
@@ -43,4 +43,4 @@ docker:
 		--build-arg SERVICE_NAME=$(SERVICENAME) \
 		--build-arg SERVICE_DEPENDENCIES=$(SERVICE_DEPENDENCIES) \
 		-f Dockerfile .
-
+	docker tag "carprks/$(SERVICENAME):$(BUILD)" "carprks/$(SERVICENAME):latest"
